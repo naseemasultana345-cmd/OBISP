@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Temperature Converter</title>
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+  <div class="phone">
+
+    <h1>Temperature converter</h1>
+
+    <div class="row">
+
+      <!-- Degrees -->
+
+      <div class="input-group">
+
+        <label>Degrees</label>
+
+        <input
+          type="number"
+          id="temperature"
+          placeholder="72"
+        >
+
+      </div>
+
+      <!-- Type -->
+
+      <div class="input-group">
+
+        <label>Type</label>
+
+        <select id="fromUnit">
+
+          <option value="fahrenheit">
+            Fahrenheit
+          </option>
+
+          <option value="celsius">
+            Celsius
+          </option>
+
+          <option value="kelvin">
+            Kelvin
+          </option>
+
+        </select>
+
+      </div>
+
+    </div>
+
+    <!-- Result -->
+
+    <div class="result-box">
+
+      <label>Result</label>
+
+      <div id="result" class="result">
+        --
+      </div>
+
+    </div>
+
+    <!-- Button -->
+
+    <button onclick="convertTemperature()">
+
+      Convert
+
+    </button>
+
+  </div>
+
+  <script>
+
+    function convertTemperature(){
+
+      let temp = parseFloat(
+        document.getElementById("temperature").value
+      );
+
+      let from =
+        document.getElementById("fromUnit").value;
+
+      let result =
+        document.getElementById("result");
+
+      if(isNaN(temp)){
+
+        result.innerHTML = "--";
+
+        return;
+      }
+
+      let converted;
+
+      // Fahrenheit to Celsius
+
+      if(from === "fahrenheit"){
+
+        converted = (temp - 32) * 5/9;
+
+        result.innerHTML =
+          converted.toFixed(4) + " °C";
+      }
+
+      // Kelvin to Celsius
+
+      else if(from === "kelvin"){
+
+        converted = temp - 273.15;
+
+        result.innerHTML =
+          converted.toFixed(4) + " °C";
+      }
+
+      // Celsius
+
+      else{
+
+        result.innerHTML =
+          temp.toFixed(4) + " °C";
+      }
+
+    }
+
+  </script>
+
+</body>
+
+</html>

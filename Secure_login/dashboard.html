@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <div class="dashboard-card">
+
+        <h1>Welcome User</h1>
+
+        <div class="profile-section">
+
+            <p><strong>Name:</strong> <span id="displayName"></span></p>
+
+            <p><strong>Username:</strong> <span id="displayUsername"></span></p>
+
+            <p><strong>Email:</strong> <span id="displayEmail"></span></p>
+
+            <p><strong>Phone:</strong> <span id="displayPhone"></span></p>
+
+            <p><strong>Gender:</strong> <span id="displayGender"></span></p>
+
+            <p><strong>Date of Birth:</strong> <span id="displayDob"></span></p>
+
+        </div>
+
+        <button onclick="logoutUser()">Logout</button>
+
+    </div>
+
+</div>
+
+<script>
+
+    let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+    if(!loggedInUser){
+
+        alert("Access Denied! Please Login First");
+
+        window.location.href = "index.html";
+    }
+
+    document.getElementById("displayName").innerHTML =
+    loggedInUser.fullName;
+
+    document.getElementById("displayUsername").innerHTML =
+    loggedInUser.username;
+
+    document.getElementById("displayEmail").innerHTML =
+    loggedInUser.email;
+
+    document.getElementById("displayPhone").innerHTML =
+    loggedInUser.phone;
+
+    document.getElementById("displayGender").innerHTML =
+    loggedInUser.gender;
+
+    document.getElementById("displayDob").innerHTML =
+    loggedInUser.dob;
+
+</script>
+
+<script src="script.js"></script>
+
+</body>
+</html>

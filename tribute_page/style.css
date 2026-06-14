@@ -1,0 +1,162 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: black;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Main Container */
+
+.container{
+    width: 100%;
+}
+
+/* Hero Section */
+
+.hero{
+    height: 45vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: black;
+}
+
+.hero h1{
+    font-size: 55px;
+    margin-bottom: 10px;
+}
+
+.year{
+    font-size: 22px;
+    color: lightgray;
+    margin-bottom: 35px;
+}
+
+/* Play Button */
+
+.play-btn{
+    width: 70px;
+    height: 70px;
+    border: 2px solid white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.play-btn:hover{
+    background-color: white;
+    color: black;
+    transform: scale(1.1);
+}
+
+/* Quote Section */
+
+.quote-section{
+    background-color: white;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    flex-wrap: wrap;
+}
+
+.quote{
+    width: 50%;
+}
+
+.quote h2{
+    font-size: 34px;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+/* Image */
+
+.image{
+    width: 40%;
+    text-align: center;
+}
+
+.image img{
+    width: 320px;
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.3);
+}
+
+/* Biography */
+
+.biography{
+    width: 70%;
+    margin: 60px auto;
+}
+
+.biography h2{
+    font-size: 46px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.biography p{
+    font-size: 18px;
+    line-height: 1.9;
+    color: lightgray;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+/* Footer */
+
+footer{
+    border-top: 1px solid gray;
+    padding: 20px;
+    text-align: center;
+    color: lightgray;
+}
+
+/* Responsive Design */
+
+@media(max-width: 768px){
+
+    .hero h1{
+        font-size: 38px;
+    }
+
+    .quote-section{
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .quote{
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .quote h2{
+        font-size: 26px;
+    }
+
+    .image{
+        width: 100%;
+    }
+
+    .biography{
+        width: 90%;
+    }
+
+    .biography h2{
+        font-size: 36px;
+    }
+}

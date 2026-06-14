@@ -1,0 +1,106 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#5b92cc;
+}
+
+.calculator{
+  width:340px;
+  background:#dfe7f1;
+  padding:20px;
+  border-radius:30px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+.display{
+  width:100%;
+  min-height:120px;
+  background:#cfe0f2;
+  border-radius:20px;
+  padding:20px;
+  margin-bottom:20px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  text-align:right;
+  word-wrap:break-word;
+}
+
+#history{
+  font-size:22px;
+  color:#4f7aa5;
+  min-height:30px;
+}
+
+#result{
+  font-size:55px;
+  font-weight:bold;
+  color:#12395f;
+}
+
+.buttons{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+button{
+  height:70px;
+  border:none;
+  border-radius:18px;
+  font-size:28px;
+  cursor:pointer;
+  background:#cfe0f2;
+  color:#12395f;
+  transition:0.2s;
+  font-weight:bold;
+}
+
+button:hover{
+  transform:scale(1.05);
+}
+
+button:active{
+  transform:scale(0.95);
+}
+
+.operator{
+  background:#9fc2e8;
+  color:#25527c;
+}
+
+.equal{
+  background:#5b92cc;
+  color:white;
+  grid-column:span 2;
+}
+
+.top-btn{
+  font-size:20px;
+}
+
+@media(max-width:400px){
+
+  .calculator{
+    width:95%;
+  }
+
+  button{
+    height:65px;
+    font-size:24px;
+  }
+
+  #result{
+    font-size:45px;
+  }
+
+}
