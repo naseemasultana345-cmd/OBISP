@@ -1,72 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard</title>
-
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="dashboard-container">
+<div class="container">
 
-    <div class="dashboard-card">
+<div class="card">
 
-        <h1>Welcome User</h1>
+<div class="avatar" id="avatar">
+N
+</div>
 
-        <div class="profile-section">
+<h2 id="welcomeTitle">
+Welcome User
+</h2>
 
-            <p><strong>Name:</strong> <span id="displayName"></span></p>
+<div class="user-status">
 
-            <p><strong>Username:</strong> <span id="displayUsername"></span></p>
-
-            <p><strong>Email:</strong> <span id="displayEmail"></span></p>
-
-            <p><strong>Phone:</strong> <span id="displayPhone"></span></p>
-
-            <p><strong>Gender:</strong> <span id="displayGender"></span></p>
-
-            <p><strong>Date of Birth:</strong> <span id="displayDob"></span></p>
-
-        </div>
-
-        <button onclick="logoutUser()">Logout</button>
-
-    </div>
+🟢 Logged In Successfully
 
 </div>
 
-<script>
+<div class="profile-card">
 
-    let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+<div class="profile-row">
+<span>Full Name</span>
+<span id="dashFullName"></span>
+</div>
 
-    if(!loggedInUser){
+<div class="profile-row">
+<span>Username</span>
+<span id="dashUsername"></span>
+</div>
 
-        alert("Access Denied! Please Login First");
+<div class="profile-row">
+<span>Email</span>
+<span id="dashEmail"></span>
+</div>
 
-        window.location.href = "index.html";
-    }
+<div class="profile-row">
+<span>Phone</span>
+<span id="dashPhone"></span>
+</div>
 
-    document.getElementById("displayName").innerHTML =
-    loggedInUser.fullName;
+<div class="profile-row">
+<span>Gender</span>
+<span id="dashGender"></span>
+</div>
 
-    document.getElementById("displayUsername").innerHTML =
-    loggedInUser.username;
+<div class="profile-row">
+<span>DOB</span>
+<span id="dashDOB"></span>
+</div>
 
-    document.getElementById("displayEmail").innerHTML =
-    loggedInUser.email;
+</div>
 
-    document.getElementById("displayPhone").innerHTML =
-    loggedInUser.phone;
+<button
+class="btn btn-logout"
+onclick="logoutUser()">
 
-    document.getElementById("displayGender").innerHTML =
-    loggedInUser.gender;
+Logout
 
-    document.getElementById("displayDob").innerHTML =
-    loggedInUser.dob;
+</button>
 
-</script>
+</div>
+
+</div>
 
 <script src="script.js"></script>
 

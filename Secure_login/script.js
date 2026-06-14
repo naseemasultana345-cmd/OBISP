@@ -1,193 +1,192 @@
-// REGISTER USER
-function registerUser(){
+function togglePassword(id){
 
-    let fullName = document.getElementById("fullName").value;
-    let username = document.getElementById("username").value;
-    let email = document.getElementById("email").value;
-    let phone = document.getElementById("phone").value;
-    let dob = document.getElementById("dob").value;
-    let gender = document.getElementById("gender").value;
-    let password = document.getElementById("password").value;
-    let confirmPassword = document.getElementById("confirmPassword").value;
+let input=document.getElementById(id);
 
-    // VALIDATION
-
-    if(fullName==="" || username==="" || email==="" ||
-       phone==="" || dob==="" || gender==="" ||
-       password==="" || confirmPassword===""){
-
-        alert("Please fill all fields");
-        return;
-    }
-
-    // EMAIL VALIDATION
-
-    let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-
-    if(!email.match(emailPattern)){
-
-        alert("Invalid Email Address");
-        return;
-    }
-
-    // PHONE VALIDATION
-
-    if(phone.length !== 10){
-
-        alert("Phone number must be 10 digits");
-        return;
-    }
-
-    // PASSWORD VALIDATION
-
-    let passwordPattern =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
-
-    if(!password.match(passwordPattern)){
-
-        alert(
-        "Password must contain:\n" +
-        "- 1 Uppercase Letter\n" +
-        "- 1 Lowercase Letter\n" +
-        "- 1 Number\n" +
-        "- 1 Special Character\n" +
-        "- Minimum 8 Characters"
-        );
-
-        return;
-    }
-
-    // CONFIRM PASSWORD
-
-    if(password !== confirmPassword){
-
-        alert("Passwords do not match");
-        return;
-    }
-
-    // CHECK EXISTING USER
-
-    if(localStorage.getItem(email)){
-
-        alert("User already exists");
-        return;
-    }
-
-    let user = {
-        fullName,
-        username,
-        email,
-        phone,
-        dob,
-        gender,
-        password
-    };
-
-    localStorage.setItem(email, JSON.stringify(user));
-
-    alert("Registration Successful");
-
-    window.location.href = "index.html";
+if(input.type==="password"){
+input.type="text";
+}
+else{
+input.type="password";
+}
 }
 
+function registerUser(){
 
-// LOGIN USER
+let fullName=document.getElementById("fullName").value.trim();
+let username=document.getElementById("username").value.trim();
+let email=document.getElementById("email").value.trim();
+let phone=document.getElementById("phone").value.trim();
+let dob=document.getElementById("dob").value;
+let gender=document.getElementById("gender").value;
+let password=document.getElementById("password").value;
+let confirmPassword=document.getElementById("confirmPassword").value;
+
+if(
+fullName===""||
+username===""||
+email===""||
+phone===""||
+dob===""||
+gender===""||
+password===""||
+confirmPassword===""){
+alert("Please fill all fields");
+return;
+}
+
+let emailPattern=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if(!emailPattern.test(email)){
+alert("Invalid Email");
+return;
+}
+
+if(!/^\d{10}$/.test(phone)){
+alert("Phone number must be 10 digits");
+return;
+}
+
+let age=
+new Date().getFullYear()
+-
+new Date(dob).getFullYear();
+
+if(age<18){
+alert("Age must be 18+");
+return;
+}
+
+let passPattern=
+/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+
+if(!passPattern.test(password)){
+alert("Weak Password");
+return;
+}
+
+if(password!==confirmPassword){
+alert("Passwords do not match");
+return;
+}
+
+let users=
+JSON.parse(localStorage.getItem("users"))||[];
+
+let exists=
+users.some(user=>user.email===email);
+
+if(exists){
+alert("User already exists");
+return;
+}
+
+users.push({
+fullName,
+username,
+email,
+phone,
+dob,
+gender,
+password
+});
+
+localStorage.setItem(
+"users",
+JSON.stringify(users)
+);
+
+alert("Registration Successful");
+
+window.location.href="index.html";
+}
 
 function loginUser(){
 
-    let email = document.getElementById("loginEmail").value;
+let login=document
+.getElementById("loginEmail")
+.value.trim();
 
-    let password = document.getElementById("loginPassword").value;
+let password=document
+.getElementById("loginPassword")
+.value;
 
-    let storedUser = localStorage.getItem(email);
+let users=
+JSON.parse(localStorage.getItem("users"))
+||[];
 
-    if(!storedUser){
+let user=
+users.find(
+u=>
+(
+u.email===login||
+u.username===login
+)
+&&
+u.password===password
+);
 
-        alert("User not found");
-        return;
-    }
-
-    let userData = JSON.parse(storedUser);
-
-    if(userData.password === password){
-
-        localStorage.setItem(
-            "loggedInUser",
-            JSON.stringify(userData)
-        );
-
-        alert("Login Successful");
-
-        window.location.href = "dashboard.html";
-    }
-    else{
-
-        alert("Incorrect Password");
-    }
+if(!user){
+alert("Invalid Credentials");
+return;
 }
 
+localStorage.setItem(
+"currentUser",
+JSON.stringify(user)
+);
 
-// LOGOUT USER
+window.location.href="dashboard.html";
+}
 
 function logoutUser(){
 
-    localStorage.removeItem("loggedInUser");
+localStorage.removeItem(
+"currentUser"
+);
 
-    alert("Logged Out Successfully");
-
-    window.location.href = "index.html";
+window.location.href="index.html";
 }
 
+window.onload=function(){
 
-// SHOW PASSWORD LOGIN
+if(window.location.pathname.includes("dashboard")){
 
-function toggleLoginPassword(){
+let user=
+JSON.parse(
+localStorage.getItem("currentUser")
+);
 
-    let passwordInput =
-    document.getElementById("loginPassword");
+if(!user){
 
-    if(passwordInput.type === "password"){
+window.location.href="index.html";
 
-        passwordInput.type = "text";
-    }
-    else{
-
-        passwordInput.type = "password";
-    }
+return;
 }
 
+document.getElementById("welcomeTitle")
+.innerHTML=
+"Welcome, "+user.fullName;
 
-// SHOW PASSWORD REGISTER
+document.getElementById("avatar")
+.innerHTML=
+user.fullName.charAt(0).toUpperCase();
 
-function toggleRegisterPassword(){
+document.getElementById("dashFullName")
+.innerHTML=user.fullName;
 
-    let passwordInput =
-    document.getElementById("password");
+document.getElementById("dashUsername")
+.innerHTML=user.username;
 
-    if(passwordInput.type === "password"){
+document.getElementById("dashEmail")
+.innerHTML=user.email;
 
-        passwordInput.type = "text";
-    }
-    else{
+document.getElementById("dashPhone")
+.innerHTML=user.phone;
 
-        passwordInput.type = "password";
-    }
+document.getElementById("dashGender")
+.innerHTML=user.gender;
+
+document.getElementById("dashDOB")
+.innerHTML=user.dob;
 }
-
-
-// SHOW CONFIRM PASSWORD
-
-function toggleConfirmPassword(){
-
-    let confirmPassword =
-    document.getElementById("confirmPassword");
-
-    if(confirmPassword.type === "password"){
-
-        confirmPassword.type = "text";
-    }
-    else{
-
-        confirmPassword.type = "password";
-    }
 }

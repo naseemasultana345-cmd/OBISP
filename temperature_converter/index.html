@@ -8,7 +8,149 @@
 
   <title>Temperature Converter</title>
 
-  <link rel="stylesheet" href="style.css">
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial,sans-serif;
+    }
+
+    body{
+
+      height:100vh;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      background:linear-gradient(
+        135deg,
+        #667eea,
+        #764ba2
+      );
+    }
+
+    .phone{
+
+      width:420px;
+
+      background:#fff;
+
+      padding:40px 30px;
+
+      border-radius:30px;
+
+      box-shadow:0 15px 40px rgba(0,0,0,0.2);
+    }
+
+    h1{
+
+      text-align:center;
+
+      margin-bottom:40px;
+
+      font-size:32px;
+
+      color:#222;
+    }
+
+    .row{
+
+      display:flex;
+
+      gap:20px;
+
+      margin-bottom:25px;
+    }
+
+    .input-group{
+      flex:1;
+    }
+
+    label{
+
+      display:block;
+
+      margin-bottom:10px;
+
+      color:#666;
+
+      font-size:14px;
+    }
+
+    input,
+    select{
+
+      width:100%;
+
+      padding:12px;
+
+      border:2px solid #ddd;
+
+      border-radius:10px;
+
+      font-size:18px;
+
+      outline:none;
+    }
+
+    input:focus,
+    select:focus{
+
+      border-color:#667eea;
+    }
+
+    .result-box{
+
+      margin-top:20px;
+
+      text-align:center;
+
+      margin-bottom:30px;
+    }
+
+    .result{
+
+      font-size:42px;
+
+      font-weight:bold;
+
+      color:#667eea;
+
+      margin-top:10px;
+    }
+
+    button{
+
+      width:100%;
+
+      padding:15px;
+
+      border:none;
+
+      border-radius:12px;
+
+      background:#667eea;
+
+      color:white;
+
+      font-size:20px;
+
+      font-weight:bold;
+
+      cursor:pointer;
+
+      transition:0.3s;
+    }
+
+    button:hover{
+
+      background:#4f5fd3;
+    }
+
+  </style>
 
 </head>
 
@@ -16,31 +158,52 @@
 
   <div class="phone">
 
-    <h1>Temperature converter</h1>
+    <h1>Temperature Converter</h1>
 
     <div class="row">
 
-      <!-- Degrees -->
-
       <div class="input-group">
 
-        <label>Degrees</label>
+        <label>Temperature</label>
 
         <input
           type="number"
           id="temperature"
-          placeholder="72"
-        >
+          placeholder="Enter Value">
 
       </div>
 
-      <!-- Type -->
+    </div>
+
+    <div class="row">
 
       <div class="input-group">
 
-        <label>Type</label>
+        <label>From</label>
 
         <select id="fromUnit">
+
+          <option value="celsius">
+            Celsius
+          </option>
+
+          <option value="fahrenheit">
+            Fahrenheit
+          </option>
+
+          <option value="kelvin">
+            Kelvin
+          </option>
+
+        </select>
+
+      </div>
+
+      <div class="input-group">
+
+        <label>To</label>
+
+        <select id="toUnit">
 
           <option value="fahrenheit">
             Fahrenheit
@@ -60,8 +223,6 @@
 
     </div>
 
-    <!-- Result -->
-
     <div class="result-box">
 
       <label>Result</label>
@@ -72,12 +233,8 @@
 
     </div>
 
-    <!-- Button -->
-
     <button onclick="convertTemperature()">
-
-      Convert
-
+      Convert Temperature
     </button>
 
   </div>
@@ -86,15 +243,19 @@
 
     function convertTemperature(){
 
-      let temp = parseFloat(
+      let temp =
+      parseFloat(
         document.getElementById("temperature").value
       );
 
       let from =
-        document.getElementById("fromUnit").value;
+      document.getElementById("fromUnit").value;
+
+      let to =
+      document.getElementById("toUnit").value;
 
       let result =
-        document.getElementById("result");
+      document.getElementById("result");
 
       if(isNaN(temp)){
 
@@ -105,34 +266,74 @@
 
       let converted;
 
-      // Fahrenheit to Celsius
+      if(from === to){
 
-      if(from === "fahrenheit"){
+        converted = temp;
+      }
+
+      else if(
+        from === "celsius" &&
+        to === "fahrenheit"
+      ){
+
+        converted = (temp * 9/5) + 32;
+      }
+
+      else if(
+        from === "celsius" &&
+        to === "kelvin"
+      ){
+
+        converted = temp + 273.15;
+      }
+
+      else if(
+        from === "fahrenheit" &&
+        to === "celsius"
+      ){
 
         converted = (temp - 32) * 5/9;
-
-        result.innerHTML =
-          converted.toFixed(4) + " °C";
       }
 
-      // Kelvin to Celsius
+      else if(
+        from === "fahrenheit" &&
+        to === "kelvin"
+      ){
 
-      else if(from === "kelvin"){
+        converted =
+        ((temp - 32) * 5/9) + 273.15;
+      }
+
+      else if(
+        from === "kelvin" &&
+        to === "celsius"
+      ){
 
         converted = temp - 273.15;
-
-        result.innerHTML =
-          converted.toFixed(4) + " °C";
       }
 
-      // Celsius
+      else if(
+        from === "kelvin" &&
+        to === "fahrenheit"
+      ){
 
-      else{
-
-        result.innerHTML =
-          temp.toFixed(4) + " °C";
+        converted =
+        ((temp - 273.15) * 9/5) + 32;
       }
 
+      let symbol = "";
+
+      if(to === "celsius")
+        symbol = "°C";
+
+      else if(to === "fahrenheit")
+        symbol = "°F";
+
+      else
+        symbol = "K";
+
+      result.innerHTML =
+      converted.toFixed(2) + " " + symbol;
     }
 
   </script>
